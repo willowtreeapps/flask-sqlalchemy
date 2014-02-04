@@ -430,6 +430,9 @@ class _EngineConnector(object):
                 options['proxy'] = _ConnectionDebugProxy(self._app.import_name)
             if echo:
                 options['echo'] = True
+            encoding = self._app.config.get('SQLALCHEMY_ENCODING')
+            if encoding is not None:
+                options['encoding'] = encoding
             self._engine = rv = sqlalchemy.create_engine(info, **options)
             self._connected_for = (uri, echo)
             return rv
